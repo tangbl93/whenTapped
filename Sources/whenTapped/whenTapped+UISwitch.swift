@@ -9,20 +9,15 @@
 import UIKit
 
 extension UISwitch {
-    private struct AssociatedKeys {
-        static var whenTappedKey   = "whenTappedKey"
+    
+    public override func whenTapped(target: AnyObject, selector: Selector) {
+        self.addTarget(target, action: selector, for: UIControl.Event.valueChanged)
     }
     
-    @objc public override func whenTapped(handler: (() -> Void)!) {
+    public override func whenTapped(handler: @escaping (() -> Void)) {
         let aBlockClassWrapper = ClosureWrapper(closure: handler)
         objc_setAssociatedObject(self, &AssociatedKeys.whenTappedKey, aBlockClassWrapper, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        
+
         self.addTarget(self, action: #selector(UISwitch.touchUpInside), for: UIControl.Event.valueChanged)
-    }
-    
-    override func touchUpInside(){
-        let actionBlockAnyObject = objc_getAssociatedObject(self, &AssociatedKeys.whenTappedKey) as? ClosureWrapper
-        actionBlockAnyObject?.closure?()
-        self.tag = 0
     }
 }
