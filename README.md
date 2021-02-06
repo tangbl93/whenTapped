@@ -31,7 +31,7 @@ view.whenTapped(target: self, selector: #selector(whenTapped))
 #### [Strongify](https://github.com/krzysztofzablocki/Strongify)
 
 ``` swift
-$0.whenTapped(self, handler: { (context) in
+view.whenTapped(self, handler: { (context) in
     context.whenTapped()
 })
 ```
