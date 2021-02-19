@@ -9,6 +9,9 @@ let package = Package(
     products: [
         .library(name: "whenTapped", targets: ["whenTapped"]),
     ],
-    targets: [.target(name: "whenTapped", dependencies: []),],
+    dependencies: [
+        .package(name: "Strongify", url: "https://github.com/krzysztofzablocki/Strongify.git", .branch("master")),
+    ],
+    targets: [.target(name: "whenTapped", dependencies: ["Strongify"])],
     swiftLanguageVersions: [.v5]
 )
